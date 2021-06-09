@@ -1,0 +1,54 @@
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+int lightNum = 0;
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED_BUILTIN, OUTPUT);
+  lcd.init();                      // initialize the lcd 
+  lcd.backlight();
+}
+
+void loop() {
+  ExerciseThree();
+  delay(500);
+  lightNum++;
+  lcd.clear();
+  
+}
+
+
+void ExerciseOne() {
+  printLight(lightNum);
+  if(lightNum > 6) {lightNum = 0;}
+}
+
+
+void ExerciseTwo() {
+  
+
+}
+
+void ExerciseThree() {
+  printLight(lightNum);
+  printLight(6 - lightNum);
+  if(lightNum > 4) {lightNum = 0;}
+}
+
+
+void printLight(int i) {
+  lcd.setCursor(2*i, 0);
+  lcd.print("^");
+  lcd.setCursor(2*i, 1);
+  lcd.print("*");
+  lcd.setCursor(2*i, 2);
+  lcd.print("|");
+  lcd.setCursor(2*i, 4);
+  lcd.print("|");
+  lcd.setCursor((2*i)+1, 4);
+  lcd.print(i + 1);
+
+  return;
+}
